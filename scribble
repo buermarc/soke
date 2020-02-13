@@ -1,0 +1,36 @@
+## My initial thoughts:
+server          --  client
+make socket     
+                    connect to socket
+see client
+send data   
+                    receive data
+                    send data   
+receive data 
+
+
+## stuff to remeber:
+connected datagram sockets
+unconnect datagram sockets
+
+udp/tcp/...
+
+select function indicates which of the specified file descriptors is ready for reading
+
+## website server and client interaction
+Client          Server
+                socket
+                bind
+                listen      
+                accept
+                //blocks until connetion
+socket          |
+connect -connection estabishment
+write           |
+                read
+                //porcess request
+                write
+read
+close   
+                read 
+                close

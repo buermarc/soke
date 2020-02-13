@@ -1,7 +1,9 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <netinet/in.h>
 #include <stdio.h>
+#include <string.h>
 /*
  *
     Create a socket with the socket() system call.
@@ -20,14 +22,20 @@
 
 int main(void) {
     int socketfd;
+    struct sockaddr_in serveraddr, clientaddr;
+
     //TODO figure out why IPPROTO_TCP undefined
     if ((socketfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
         fprintf(stderr, "failed to create socket errno is: %d\n", errno);
+    //fill stuff with null
+    bzero((char*)&serveraddr, sizeof(serveraddr));
+    serveraddr.sin_family = AF_INET;
+    serveraddr.sin_port = htons(8989);
 
-    struct sockaddr saddr;
-    saddr.sa_family = 0;
     //TODO how to init
-    *saddr.sa_data = (char)0;
-    if (bind(socketfd, &saddr, sizeof(saddr)) == -1) 
+    if (bind(socketfd,(struct sockaddr*) &serveraddr, sizeof(serveraddr)) == -1) 
         fprintf(stderr, "failed to bind socket errno is: %d\n", errno);
+
+
 }
+//http://beej.us/guide/bgnet/html/#audience

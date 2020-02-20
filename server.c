@@ -10,6 +10,7 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <netdb.h>
+
 /*
  *
     Create a socket with the socket() system call.
@@ -29,7 +30,7 @@
     !OR use send receive
 */
 
-#define PORT "9797" 
+#define PORT "3490" 
 #define BACKLOG 10
 
 void sigchld_handler(int s) {
@@ -129,7 +130,7 @@ int main(void) {
         
         if(!fork()) {
             close(sockfd);
-            if (send(new_fd, "Hello, world!", 13, 0) == -1)
+            if (send(new_fd, "Hello, world!\n", 15, 0) == -1)
                 perror("send");
             close(new_fd);
             exit(0);
